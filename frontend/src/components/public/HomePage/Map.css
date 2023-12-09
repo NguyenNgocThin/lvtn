@@ -1,0 +1,34 @@
+.box1{
+    width: 100px;
+    position: absolute;
+    right: 0;
+    background-color: rgb(236, 249, 249);
+}
+
+.tieude{
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup{
+    width: 200px;
+    height: 150px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ff0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.tieudepopup{
+    color: aqua;
+    margin-top: 0%;
+}
