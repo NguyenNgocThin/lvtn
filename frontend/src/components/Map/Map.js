@@ -9,6 +9,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Select,
   List,
   ListItem,
   SkeletonText,
@@ -21,7 +22,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import {
   Autocomplete,
   DirectionsRenderer,
-  DirectionsService,
+  DirectionsService
 } from "@react-google-maps/api";
 import "./Map.css";
 import BookingModal from '../Modal/BookingModal';
@@ -81,21 +82,26 @@ const MapContainer = (props) => {
     setMarkers(storedMarkers);
   }, []);
 
+
   async function calculateRoute() {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
       return;
-    }
+    }else{
     const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
       origin: originRef.current.value,
       destination: destinationRef.current.value,
       travelMode: google.maps.TravelMode.DRIVING,
+      
     });
+    
+    // console.log("check" ,results)
 
     setDirectionsResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
   }
+}
 
   function clearRoute() {
     setDirectionsResponse(null);
@@ -113,6 +119,8 @@ const MapContainer = (props) => {
       });
     }
   }, []);
+
+
 
   const handleGetCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -191,7 +199,7 @@ const MapContainer = (props) => {
   async function reverseGeocode(lat, lng) {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBiGHu8TqbCiE3VxNTcYCmJvj49xYbNwbk`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyArVizBbMBDY027MKq7kGrwuAPZB-am0oE`
       );
       const data = await response.json();
 
@@ -237,7 +245,8 @@ const MapContainer = (props) => {
   };
 
   return (
-    <><NavHeader />
+    <>
+    {/* <NavHeader/> */}
     <Flex className="flexbox" display="flex">
       <Map
         // flexGrow={1}
@@ -288,7 +297,7 @@ const MapContainer = (props) => {
         <HStack spacing={2} justifyContent="space-between">
           <Box flexGrow={1}>
             <Autocomplete>
-              <Input type="text" placeholder="Điểm xuất phát" ref={originRef} />
+              <Input type="text" placeholder="Điểm xuất phát"   ref={originRef} />
             </Autocomplete>
           </Box>
           <Box flexGrow={1}>
@@ -299,7 +308,6 @@ const MapContainer = (props) => {
 
           <ButtonGroup>
             <Button colorScheme="pink" type="submit"
-             style={{background :"#FF00FF" ,outline:"none" ,border:"none" , color:"white" , style:"bold"}}
              onClick={calculateRoute}>
               Chỉ Đường
             </Button>
@@ -345,5 +353,5 @@ const MapContainer = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyBiGHu8TqbCiE3VxNTcYCmJvj49xYbNwbk",
+  apiKey: "AIzaSyArVizBbMBDY027MKq7kGrwuAPZB-am0oE",
 })(MapContainer);
